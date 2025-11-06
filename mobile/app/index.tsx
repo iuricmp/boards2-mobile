@@ -1,8 +1,4 @@
-import { View } from 'react-native'
-import Button from '@gno/components/button'
-import Layout from '@gno/components/layout'
-import Ruller from '@gno/components/row/Ruller'
-import Text from '@gno/components/text'
+import { Image, View } from 'react-native'
 import {
   clearLinking,
   loggedIn,
@@ -14,10 +10,9 @@ import {
   useAppDispatch,
   useAppSelector
 } from '@gno/redux'
-import Spacer from '@gno/components/spacer'
-import * as Application from 'expo-application'
 import { useEffect } from 'react'
 import { useRouter } from 'expo-router'
+import { Button, Text, Ruller, HomeLayout, Spacer } from 'gnokeymobile-ui'
 
 export default function Root() {
   const dispatch = useAppDispatch()
@@ -26,8 +21,6 @@ export default function Root() {
   const remoteURL = useAppSelector(selectRemoteURL)
   const account = useAppSelector(selectAccount)
   const loading = useAppSelector(selectLoginLoading)
-
-  const appVersion = Application.nativeApplicationVersion
 
   useEffect(() => {
     if (loading || !bech32AddressSelected || !remoteURL) return
@@ -51,23 +44,37 @@ export default function Root() {
   }
 
   return (
-    <>
-      <Layout.Container>
-        <Layout.BodyAlignedBotton>
-          <View style={{ alignItems: 'center' }}>
-            <Text.Title>Boards2</Text.Title>
-            <Text.Body>Decentralized Boards2 Network</Text.Body>
-            <Text.Body>Powered by GnoNative</Text.Body>
-            <Text.Caption1>v{appVersion}</Text.Caption1>
+    <HomeLayout
+      header={null}
+      footer={
+        <View style={{ gap: 8, width: '100%', alignItems: 'center', marginBottom: 32 }}>
+          <Text.Title2>Sign in using Gnokey Mobile:</Text.Title2>
+          <Spacer space={8} />
+          <Button onPress={signinUsingGnokey}>Sign in</Button>
+          <View style={{ height: 16, width: '100%', alignItems: 'center', flexDirection: 'row' }}>
+            <Ruller style={{ flex: 1, width: 'auto' }} />
+            <Text.Caption2 style={{ marginHorizontal: 8 }}>or</Text.Caption2>
+            <Ruller style={{ flex: 1, width: 'auto' }} />
           </View>
-
-          <View style={{ flex: 1 }}>{/* Hero copy */}</View>
-          <Ruller />
-          <Spacer />
-          <Text.Caption1>Sign in using Gnokey Mobile:</Text.Caption1>
-          <Button.TouchableOpacity title="Sign in" onPress={signinUsingGnokey} variant="primary" loading={loading} />
-        </Layout.BodyAlignedBotton>
-      </Layout.Container>
-    </>
+          <Button onPress={signinUsingGnokey} color="secondary">
+            Browse as Guest
+          </Button>
+        </View>
+      }
+    >
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16 }}>
+        <Image
+          source={require('@assets/images/ios/AppIcon~ios-marketing.png')}
+          style={{ width: 120, height: 120, borderRadius: 16, resizeMode: 'contain' }}
+        />
+        <View style={{ gap: 8, alignItems: 'center' }}>
+          <Text.LargeTitle>Boards2</Text.LargeTitle>
+          <View style={{ gap: 4, alignItems: 'center' }}>
+            <Text.Body>Decentralized Boards on Gno.land</Text.Body>
+            <Text.Body>Powered by GnoNative</Text.Body>
+          </View>
+        </View>
+      </View>
+    </HomeLayout>
   )
 }

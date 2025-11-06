@@ -2,7 +2,10 @@
   "expo": {
     "name": "boards2",
     "slug": "boards2",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "sdkVersion": "52.0.0",
     "orientation": "portrait",
@@ -14,7 +17,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "land.gno.boards2.ios",
@@ -56,7 +61,8 @@
           "photosPermission": "The app accesses your photos to upload an avatar.",
           "cameraPermission": "The app accesses your camera to create an avatar."
         }
-      ]
+      ],
+      "expo-font"
     ],
     "extra": {
       "router": {
